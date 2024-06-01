@@ -6,7 +6,7 @@ import { Box, Button, Card, Grid, Modal, TextField } from '@mui/material';
 import { AddLocation, ContentCopyRounded } from '@mui/icons-material';
 import { ErrorMessage, Field, Form, Formik } from 'formik'; 
 import { useDispatch, useSelector } from 'react-redux';
-import {createOrder} from '../State/Order/Action'
+import {createOrder, getUsersOrders} from '../State/Order/Action'
 // Import de Field, Form et Formik
 //import * as Yup from 'yup';
 
@@ -41,7 +41,7 @@ export const Cart = () => {
     const createOrderUsingSelectedAddress = () => {};
     const handleOpenAddressModal = () => setOpen(true);
     const [open, setOpen] = React.useState(false);
-    const {cart,auth}=useSelector(store=>store)
+    const {cart,auth,order}=useSelector(store=>store)
     const dispatch=useDispatch()
 
     const handleClose = () => setOpen(false);
@@ -62,6 +62,7 @@ export const Cart = () => {
     
         };
     dispatch(createOrder(data));
+   
     console.log("form values:", values)
     };
     
@@ -71,7 +72,7 @@ export const Cart = () => {
         <>
             <main className='lg:flex justify-between'>
                 <section className='lg:w-[30%] space-y-6 lg:min-h-screen pt-10'>
-                    {cart.cartItems.map((item) => (<CartItem  item={item}  />
+                    {cart.cartItems?.map((item) => (<CartItem  item={item}  />
                     ))}
                     <Divider />
                     <div className='billDetails px-5 text-sm'>
@@ -102,7 +103,7 @@ export const Cart = () => {
                     <div>
                         <h1 className='text-center font-semibold text-2xl py-10'>Choose Delivery Address</h1>
                         <div className='flex gap-5 flex-wrap justify-center'>
-                            {[1, 1, 1, 1, 1].map((item, index) => (
+                            {order.orders.map((item, index) => (
                                 <AddressCard key={index} handleSelectAddress={createOrderUsingSelectedAddress} item={item} showButton={true} />
                             ))}
                             <Card className='flex gap-5 w-64 p-5'>

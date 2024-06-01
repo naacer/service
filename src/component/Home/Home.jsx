@@ -9,7 +9,7 @@ import { findCart } from '../State/Cart/Action';
 const Home = () => {
   const dispatch= useDispatch()
   const jwt = localStorage.getItem("jwt")
-  const  { restaurant  }  =useSelector(store=>store)
+  const  { restaurant,auth  }  =useSelector(store=>store)
   console.log("restaurant" , restaurant)
 
   useEffect(() => {
@@ -33,10 +33,11 @@ const Home = () => {
       </section>
 
       <section>
-        <h1 className='text-2xl font-semibold text-gray-400 py-3'>Tleb a7ssan makayn 3end 9ossos</h1>
+        {auth.user &&(
+        <h1 className='text-2xl font-semibold text-gray-400 py-3'>Tleb a7ssan makayn 3end 9ossos</h1>)}
         <div className='flex flex-wrap items-center justify-around gap-5'>
             {
-              restaurant.restaurants.map((item)=><RestaurantCard item={item}/>)
+              auth.user && restaurant.restaurants.map((item)=><RestaurantCard item={item}/>)
             }
         </div>
       </section>

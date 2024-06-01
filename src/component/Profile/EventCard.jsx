@@ -2,32 +2,38 @@ import {Card, CardActions, CardContent, CardMedia, IconButton, Typography } from
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const EventCard = () => {
+export const EventCard = ({item}) => {
   return (
     <div>
         <Card sx={{width:300}}>
-            <CardMedia 
-            sx={{height:205}}
-            image="https://th.bing.com/th/id/R.1af557c593f4c61f22f5aff55c5993c8?rik=nju%2fVfGO181QHQ&pid=ImgRaw&r=0"/>
+        <CardMedia
+          sx={{ height: 345,
+            '&:hover': {
+              transform: 'scale(1.1)', // Example: Scale the image on hover
+              transition: 'transform 0.5s ease-in-out', // Example: Apply a smooth transition effect
+            },
+           }}
+          image={item.image}
+          title="green iguana"
+        />
+
             <CardContent>
                 <Typography variant='h5'>
-                    Italian Fast Food
+                    {item.name}
                 </Typography>
                 <Typography variant='body2'>
-                50% off on your first order
+                {item.restaurant.name}
                 </Typography>
                 <div className='py-2 space-x-2'>
                 <p>{"mumbai"}</p>
-                <p className='text-sm text-blue-500'> February 14, 2024 12:00Am</p>
-                <p className='text-sm text-red-500'> February 15, 2024 12:00Am</p>
+                <p className='text-sm text-blue-500'> {item.startedAt}</p>
+                <p className='text-sm text-red-500'> {item.endsAt}</p>
 
 
                 </div>
             </CardContent>
             {true && <CardActions>
-                <IconButton>
-                    <DeleteIcon/>
-                </IconButton>
+                
             </CardActions>
                 
             }

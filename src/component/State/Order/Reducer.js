@@ -1,4 +1,4 @@
-import { GET_USERS_ORDERS_FAILURE, GET_USERS_ORDERS_REQUEST, GET_USERS_ORDERS_SUCCESS } from "./ActionTypes";
+import { CREATE_ORDER_SUCCESS, GET_USERS_ORDERS_FAILURE, GET_USERS_ORDERS_REQUEST, GET_USERS_ORDERS_SUCCESS } from "./ActionTypes";
 
 
 const initialState = {
@@ -15,6 +15,13 @@ export const orderReducer =(state = initialState,action) =>{
                 loading: true
             };
         case GET_USERS_ORDERS_SUCCESS:
+            return {
+                ...state,
+                error:null,
+                loading:false,
+                orders : action.payload,
+            };
+            case CREATE_ORDER_SUCCESS:
             return {
                 ...state,
                 error:null,

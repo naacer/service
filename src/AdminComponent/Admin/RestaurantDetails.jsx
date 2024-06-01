@@ -100,7 +100,7 @@ dispatch(updateRestauranStatus({
                   <p className='w-48'>Country</p>
                   <p className='text-gray-400'>
                     <span className='pr-5'>-</span>
-                       Nacer food
+                       {restaurant.usersRestaurant?.address.country}
                   </p>
 
                 </div>
@@ -108,7 +108,7 @@ dispatch(updateRestauranStatus({
                   <p className='w-48'>City</p>
                   <p className='text-gray-400'>
                     <span className='pr-5'>-</span>
-                       Nacer food
+                    {restaurant.usersRestaurant?.address.city}
                   </p>
 
                 </div>
@@ -116,7 +116,7 @@ dispatch(updateRestauranStatus({
                   <p className='w-48'>Postal Code</p>
                   <p className='text-gray-400'>
                     <span className='pr-5'>-</span>
-                       Nacer food
+                    {restaurant.usersRestaurant?.address.postalCode}
                   </p>
 
                 </div>
@@ -124,7 +124,7 @@ dispatch(updateRestauranStatus({
                   <p className='w-48'>Street Address</p>
                   <p className='text-gray-400'>
                     <span className='pr-5'>-</span>
-                       Nacer food
+                    {restaurant.usersRestaurant?.address.streetAddress}
                   </p>
 
                 </div>
