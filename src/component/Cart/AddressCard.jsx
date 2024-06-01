@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import { Button,Card } from '@mui/material';
-import { createOrder } from '../State/Order/Action';
+import { createOrder, getUsersOrders } from '../State/Order/Action';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -23,10 +23,11 @@ export const AddressCard = ({item, showButton,handleSelectAddress }) => {
             }
         }
     };
+    
     dispatch(createOrder(data));
     console.log("Selected address data:", data);
 };
-    
+
   return (
     <Card className='flex gap-5 w-64 p-5'>
         <HomeIcon/>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CartItem from './CartItem';
 import Divider from '@mui/material/Divider';
 import AddressCard from './AddressCard';
@@ -65,6 +65,11 @@ export const Cart = () => {
    
     console.log("form values:", values)
     };
+    const jwt = localStorage.getItem("jwt")
+
+useEffect(()=>{
+  dispatch(getUsersOrders(jwt));
+},[auth.jwt])
     
     
 
@@ -103,7 +108,7 @@ export const Cart = () => {
                     <div>
                         <h1 className='text-center font-semibold text-2xl py-10'>Choose Delivery Address</h1>
                         <div className='flex gap-5 flex-wrap justify-center'>
-                            {order.orders.map((item, index) => (
+                            {Array.isArray(order.orders) && order.orders.map((item, index) => (
                                 <AddressCard key={index} handleSelectAddress={createOrderUsingSelectedAddress} item={item} showButton={true} />
                             ))}
                             <Card className='flex gap-5 w-64 p-5'>

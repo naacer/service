@@ -19,13 +19,13 @@ export const EventCard = ({item}) => {
 
             <CardContent>
                 <Typography variant='h5'>
-                    {item.name}
+                    {item?.name}
                 </Typography>
                 <Typography variant='body2'>
-                {item.restaurant.name}
+                {item.restaurant?.name}
                 </Typography>
                 <div className='py-2 space-x-2'>
-                <p>{"mumbai"}</p>
+                <p>{item.cuisineType}</p>
                 <p className='text-sm text-blue-500'> {item.startedAt}</p>
                 <p className='text-sm text-red-500'> {item.endsAt}</p>
 

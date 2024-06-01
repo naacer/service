@@ -1,15 +1,12 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Card,
   Grid,
   Modal,
   TextField,
-  Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useParams } from "react-router-dom";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -39,15 +36,11 @@ const initialValues = {
 };
 
 const Events = () => {
-  const [image, setimage] = useState("");
+  const [formValues, setFormValues] = useState(initialValues);
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const { restaurant, auth } = useSelector((store) => store);
-  const [openModal, setOpenModal] = useState(false);
-  const handleCloseModal = () => setOpenModal(false);
-  const handleOpenModal = () => setOpenModal(true);
   const jwt = localStorage.getItem("jwt");
-
-  const [formValues, setFormValues] = useState(initialValues);
 
   const handleFormChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -60,7 +53,6 @@ const Events = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     dispatch(
       createEventAction({
         data: formValues,
@@ -68,10 +60,11 @@ const Events = () => {
         jwt
       })
     );
-    console.log("Image URL:", formValues,restaurant.usersRetaurant?.id);
-    // setFormValues(initialValues);
-    // handleCloseModal();
+    handleCloseModal();
   };
+
+  const handleCloseModal = () => setOpenModal(false);
+  const handleOpenModal = () => setOpenModal(true);
 
   useEffect(() => {
     if (restaurant.usersRestaurant) {
@@ -82,11 +75,10 @@ const Events = () => {
         })
       );
     }
-  }, [restaurant.usersRestaurant]);
+  }, [restaurant.usersRestaurant, dispatch, auth.jwt, jwt]);
 
   return (
     <div>
-     
       <div className="p-5">
         <Button
           sx={{ padding: "1rem 2rem" }}
@@ -100,15 +92,8 @@ const Events = () => {
 
       <div className="mt-5 px-5 flex flex-wrap gap-5">
         {restaurant.restaurantsEvents.map((item) => (
-          <EventCard item={item} />
+          <EventCard key={item.id} item={item} isCustomer={false} />
         ))}
-        {/* <div>
-          <img
-          className="rounded-md w-[25rem] h-[25-rem] object-cover"
-            src="https://images.pexels.com/photos/5638732/pexels-photo-5638732.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt=""
-          />
-        </div> */}
       </div>
 
       <Modal
@@ -143,7 +128,7 @@ const Events = () => {
               <Grid item xs={12}>
                 <TextField
                   name="name"
-                  label="Event Name"
+                  label="Name"
                   variant="outlined"
                   fullWidth
                   value={formValues.name}
@@ -152,40 +137,28 @@ const Events = () => {
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateTimePicker
-                    renderInput={(props) => <TextField {...props} />}
-                    label="Start Date and Time"
-                    value={formValues.formValues?.startedAt}
-                    onChange={(newValue) =>
-                      handleDateChange(newValue, "startedAt")
-                    }
-                    inputFormat="MM/dd/yyyy hh:mm a"
-                    className="w-full"
-                    sx={{ width: "100%" }}
-                  />
+                  <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                    <DateTimePicker
+                      label="Start Date & Time"
+                      value={formValues.startedAt ? dayjs(formValues.startedAt) : null}
+                      onChange={(date) => handleDateChange(date, 'startedAt')}
+                      renderInput={(params) => <TextField {...params} fullWidth />}
+                    />
+                    <DateTimePicker
+                      label="End Date & Time"
+                      value={formValues.endsAt ? dayjs(formValues.endsAt) : null}
+                      onChange={(date) => handleDateChange(date, 'endsAt')}
+                      renderInput={(params) => <TextField {...params} fullWidth />}
+                    />
+                  </DemoContainer>
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateTimePicker
-                    renderInput={(props) => <TextField {...props} />}
-                    label="End Date and Time"
-                    value={formValues.formValues?.endsAt}
-                    onChange={(newValue) =>
-                      handleDateChange(newValue, "endsAt")
-                    }
-                    inputFormat="MM/dd/yyyy hh:mm a"
-                    className="w-full"
-                    sx={{ width: "100%" }}
-                  />
-                </LocalizationProvider>
+                <Button variant="contained" color="primary" type="submit" fullWidth>
+                  Submit
+                </Button>
               </Grid>
             </Grid>
-            <Box mt={2}>
-              <Button variant="contained" color="primary" type="submit">
-                Submit
-              </Button>
-            </Box>
           </form>
         </Box>
       </Modal>
