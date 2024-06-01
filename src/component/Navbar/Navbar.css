@@ -1,10 +1,65 @@
-li{  
+.navbar {
+    background: no-repeat center center;
+    background-size: cover;
+    height: 15vh; /* Ajustez selon vos besoins */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    gap: 2rem;
+  }
+  li{  
     list-style: none;
 }
-.logo-image {
-    width: 60px; /* Spécifiez la largeur de l'image */
+  
+  .navbar .logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .navbar .menu {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .navbar .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin: 0 10px;
+  }
+
+  
+  .navbar .menu a:hover {
+    color: yellow;
+  }
+  
+  .navbar .actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .navbar .order-btn {
+    background-color: yellow;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+  }
+  
+  .navbar .order-btn:hover {
+    background-color: darkorange;
+  }
+  
+  .logo-image {
+    width: 70px; /* Spécifiez la largeur de l'image */
     height: auto; /* Permet de conserver les proportions de l'image */
-    margin-right: 3px; /* Marge à droite pour séparer l'image du texte */
+    margin-right: 2px; /* Marge à droite pour séparer l'image du texte */
     display: flex;
    
   }
